@@ -1,6 +1,6 @@
 [Plymouth Theme]
-Name=RavenSystems
-Description=Raven Systems plymouth theme charging logo.
+Name=RavenSys
+Description=RavenSys charging logo Plymouth theme.
 ModuleName=two-step
 
 [two-step]
@@ -11,3 +11,4 @@ Transition=none
 TransitionDuration=0.0
 BackgroundStartColor=0x2f2f2f
 BackgroundEndColor=0x2f2f2f
+
