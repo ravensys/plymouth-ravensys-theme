@@ -5,3 +5,5 @@ build
 plymouth-theme-ravensys-*.tar.gz
 plymouth-theme-ravensys-*.tar.xz
 
+# open build service
+obs
