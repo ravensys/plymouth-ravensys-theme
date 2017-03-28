@@ -143,7 +143,7 @@ clean:
 .PHONY: distclean
 distclean:
 	@echo "Cleaning up distribution archive(s) ..."
-	@rm -f $(DISTFILE)-*.tar.gz $(DISTFILE)-*.tar.xz
+	@rm -f $(DISTNAME)-*.tar.gz $(DISTNAME)-*.tar.xz
 	@echo "Done!"
 	
 .PHONY: cleanall
