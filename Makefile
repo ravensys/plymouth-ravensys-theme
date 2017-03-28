@@ -1,9 +1,10 @@
-BUILDDIR = ./build
+BUILDDIR = build
 INSTALLDIR = /usr/share/plymouth/themes/ravensys
-RESOURCEDIR = ./resource
-SOURCEDIR = ./src
+RESOURCEDIR = resource
+SOURCEDIR = src
 
-DISTFILE = plymouth-theme-ravensys
+DISTNAME = plymouth-theme-ravensys
+DISTFILE = $(DISTNAME)-$(shell date '+%Y%m%d')
 
 PROGRESSFILE = progress
 THROBBERFILE = throbber
@@ -116,7 +117,8 @@ build:
 .PHONY: dist
 dist: build
 	@echo "Generating distribution archive ..."
-	@tar -czvf $(DISTFILE)-$$(date "+%Y%m%d").tar.gz -C $(BUILDDIR) .
+	@tar -czf "$(DISTFILE).tar.gz" --transform "s/build/$(DISTFILE)/" "$(BUILDDIR)"
+	@tar -cJf "$(DISTFILE).tar.xz" --transform "s/build/$(DISTFILE)/" "$(BUILDDIR)"
 	@echo "Done!"
 
 .PHONY: install
@@ -141,7 +143,7 @@ clean:
 .PHONY: distclean
 distclean:
 	@echo "Cleaning up distribution archive(s) ..."
-	@rm -f $(DISTFILE)-*.tar.gz
+	@rm -f $(DISTFILE)-*.tar.gz $(DISTFILE)-*.tar.xz
 	@echo "Done!"
 	
 .PHONY: cleanall
