@@ -29,7 +29,7 @@ build:
 		-e "$(BUILDDIR)/resource/$(LOGO_NAME).png" \
 		-w $(LOGO_WIDTH) \
 		-h $(LOGO_HEIGHT) \
-		"$(RESOURCEDIR)/$(LOGO_NAME).svg"
+		"$(SOURCEDIR)/$(LOGO_NAME).svgz"
 	
 	@echo "Generating resources ..."
 	@convert \
