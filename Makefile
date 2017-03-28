@@ -116,7 +116,7 @@ build:
 .PHONY: dist
 dist: build
 	@echo "Generating distribution archive ..."
-	@tar -czvf $(DISTFILE).tar.gz -C $(BUILDDIR) .
+	@tar -czvf $(DISTFILE)-$$(date "+%Y%m%d").tar.gz -C $(BUILDDIR) .
 	@echo "Done!"
 
 .PHONY: install
