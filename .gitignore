@@ -1,9 +1,24 @@
-# build directory
-build
+# build objects
+background-tile.png
+box.png
+bullet.png
+entry.png
+lock.png
+progress-*.png
+throbber-*.png
+ravensys.plymouth
 
-# distribution archives
+# obj directory
+obj
+
+# dist archives
+plymouth-theme-ravensys.tar.gz
+plymouth-theme-ravensys.tar.xz
+
+# release archives
 plymouth-theme-ravensys-*.tar.gz
 plymouth-theme-ravensys-*.tar.xz
 
 # open build service
-obs
+build-service
+
