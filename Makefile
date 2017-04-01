@@ -15,7 +15,7 @@ THROBBERLEN = 16
 
 source-dir = src
 source-files += logo.svgz
-source-files += theme.plymouth
+source-files += theme.plymouth.in
 source-files += $(addprefix resource/,$(static-resources))
 
 obj-dir = obj
@@ -82,8 +82,11 @@ dist: $(dist-filename).tar.gz $(dist-filename).tar.xz
 .PHONY: release
 release: $(release-filename).tar.gz $(release-filename).tar.xz
 
-$(THEMENAME).plymouth: theme.plymouth
-	cp "$<" "$@"
+$(THEMENAME).plymouth: theme.plymouth.in
+	sed \
+		-e "s/@THEMENAME@/$(THEMENAME)/" \
+		-e "s/@THEMEDESC@/$(THEMEDESC)/" \
+		"$<" > "$@"
 
 $(progress-animation): $(progress-filename)-%.png: $(obj-dir)/logo-transparent.png $(obj-dir)/logo.png
 	convert "$<" \

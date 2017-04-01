@@ -1,6 +1,6 @@
 [Plymouth Theme]
-Name=RavenSys
-Description=RavenSys charging logo Plymouth theme.
+Name=@THEMENAME@
+Description=@THEMEDESC@
 ModuleName=two-step
 
 [two-step]
