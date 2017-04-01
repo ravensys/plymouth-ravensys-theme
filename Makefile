@@ -1,5 +1,8 @@
-#TODO handle this variable properly
-datadir = /usr/share
+prefix = /usr
+datarootdir = $(prefix)/share
+datadir = $(datarootdir)
+
+srcdir = src
 
 THEMENAME = ravensys
 THEMEDESC = RavenSys charging logo Plymouth theme.
@@ -13,7 +16,6 @@ PROGRESSLEN = 16
 
 THROBBERLEN = 16
 
-source-dir = src
 source-files += logo.svgz
 source-files += theme.plymouth.in
 source-files += $(addprefix resource/,$(static-resources))
@@ -29,7 +31,7 @@ throbber-animation = $(addprefix $(throbber-filename)-,$(addsuffix .png,$(shell 
 static-resources = background-tile.png box.png bullet.png entry.png lock.png
 
 dist-filename = plymouth-theme-$(THEMENAME)
-dist-files += $(addprefix $(source-dir)/, $(source-files))
+dist-files += $(addprefix $(srcdir)/, $(source-files))
 dist-files += Makefile
 dist-files += LICENSE
 dist-files += README.md
@@ -43,7 +45,7 @@ release-files += LICENSE
 
 install-dir = $(datadir)/plymouth/themes/$(THEMENAME)
 
-VPATH = $(source-dir)
+VPATH = $(srcdir)
 
 .PHONY: all
 all: $(progress-animation) $(throbber-animation) $(static-resources) $(THEMENAME).plymouth
