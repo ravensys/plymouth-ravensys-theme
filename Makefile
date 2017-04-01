@@ -39,6 +39,7 @@ release-files += $(progress-animation)
 release-files += $(throbber-animation)
 release-files += $(static-resources)
 release-files += $(THEMENAME).plymouth
+release-files += LICENSE
 
 install-dir = $(datadir)/plymouth/themes/$(THEMENAME)
 
