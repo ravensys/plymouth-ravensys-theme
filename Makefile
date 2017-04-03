@@ -23,10 +23,12 @@ source-files += $(addprefix resource/,$(static-resources))
 obj-dir = obj
 
 progress-filename = progress
-progress-animation = $(addprefix $(progress-filename)-,$(addsuffix .png,$(shell seq -w 0 $$(( $(PROGRESSLEN) - 1 )))))
+progress-animation = $(addprefix $(progress-filename)-,$(addsuffix .png,$(progress-sequence)))
+progress-sequence = $(shell seq -w 0 $$(( $(PROGRESSLEN) - 1 )))
 
 throbber-filename = throbber
-throbber-animation = $(addprefix $(throbber-filename)-,$(addsuffix .png,$(shell seq -w 0 $$(( $(THROBBERLEN) - 1 )))))
+throbber-animation = $(addprefix $(throbber-filename)-,$(addsuffix .png,$(throbber-sequence)))
+throbber-sequence = $(shell seq -w 0 $$(( $(THROBBERLEN) - 1 )))
 
 static-resources = background-tile.png box.png bullet.png entry.png lock.png
 
