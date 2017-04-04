@@ -23,12 +23,12 @@ source-files += $(addprefix resource/,$(static-resources))
 obj-dir = obj
 
 progress-filename = progress
-progress-animation = $(addprefix $(progress-filename)-,$(addsuffix .png,$(progress-sequence)))
 progress-sequence = $(shell seq -w 0 $$(( $(PROGRESSLEN) - 1 )))
+progress-animation = $(addprefix $(progress-filename)-,$(addsuffix .png,$(progress-sequence)))
 
 throbber-filename = throbber
-throbber-animation = $(addprefix $(throbber-filename)-,$(addsuffix .png,$(throbber-sequence)))
 throbber-sequence = $(shell seq -w 0 $$(( $(THROBBERLEN) - 1 )))
+throbber-animation = $(addprefix $(throbber-filename)-,$(addsuffix .png,$(throbber-sequence)))
 
 static-resources = background-tile.png box.png bullet.png entry.png lock.png
 
@@ -55,7 +55,7 @@ all: $(progress-animation) $(throbber-animation) $(static-resources) $(THEMENAME
 .PHONY: install
 install:
 	install -d -m 0755 $(DESTDIR)$(install-dir)
-	install -m 0644 $(progress-animation) $(DESTDIR)$(install-dir) 
+	install -m 0644 $(progress-animation) $(DESTDIR)$(install-dir)
 	install -m 0644 $(throbber-animation) $(DESTDIR)$(install-dir)
 	install -m 0644 $(static-resources) $(DESTDIR)$(install-dir)
 	install -m 0644 $(THEMENAME).plymouth $(DESTDIR)$(install-dir)
@@ -71,14 +71,14 @@ uninstall:
 .PHONY: clean
 clean:
 	rm -rf $(obj-dir)
-	rm -f $(progress-animation) 
+	rm -f $(progress-animation)
 	rm -f $(throbber-animation)
 	rm -f $(static-resources)
 	rm -f $(THEMENAME).plymouth
 
 .PHONY: cleanall
 cleanall: clean
-	rm -f $(dist-filename).tar.gz $(dist-filename).tar.xz 
+	rm -f $(dist-filename).tar.gz $(dist-filename).tar.xz
 	rm -f $(release-filename).tar.gz $(release-filename).tar.xz
 
 .PHONY: dist
@@ -96,27 +96,27 @@ $(THEMENAME).plymouth: theme.plymouth.in
 $(progress-animation): $(progress-filename)-%.png: $(obj-dir)/logo-transparent.png $(obj-dir)/logo.png
 	convert "$<" \
 		\( "$(obj-dir)/logo.png" -gravity south -crop "0x$$(( ((10#$* * $(LOGOHEIGHT)) / ($(PROGRESSLEN) - 1)) + 1 ))+0+0" \) \
-		-gravity south -composite "$@"
+		-gravity south -composite png32:"$@"
 
 $(throbber-animation): $(throbber-filename)-%.png: $(obj-dir)/logo-extent.png
 	convert "$<" \
 		\( "$<" -blur "0x$$( if [ $* -lt $$(( $(THROBBERLEN) / 2 )) ]; then echo $$(( 10#$* * 5 )); else echo $$(( ($(THROBBERLEN) - 10#$* - 1) * 5 )); fi )" \) \
-		-composite "$@"
+		-composite png32:"$@"
 
 $(static-resources): %: resource/%
 	cp "$<" "$@"
+
+$(obj-dir):
+	mkdir -p "$@"
 
 $(obj-dir)/logo.png: logo.svgz | $(obj-dir)
 	inkscape -z -e "$@" -w "$(LOGOWIDTH)" -h "$(LOGOHEIGHT)" "$<"
 
 $(obj-dir)/logo-extent.png: $(obj-dir)/logo.png
-	convert "$<" -background none -gravity center -extent "$$(echo '$(LOGOWIDTH) * 1.4 / 1' | bc)x$$(echo '$(LOGOHEIGHT) * 1.4 / 1' | bc)" "$@"
+	convert "$<" -background none -gravity center -extent "$$(echo '$(LOGOWIDTH) * 1.4 / 1' | bc)x$$(echo '$(LOGOHEIGHT) * 1.4 / 1' | bc)" png32:"$@"
 
 $(obj-dir)/logo-transparent.png: $(obj-dir)/logo.png
-	convert "$<" -alpha on -channel a -evaluate subtract "$(LOGOALPHA)%" "$@"
-
-$(obj-dir):
-	mkdir -p "$@"
+	convert "$<" -alpha on -channel a -evaluate subtract "$(LOGOALPHA)%" png32:"$@"
 
 $(dist-filename).tar.gz:
 	tar -czf "$@" --transform "s/^\./$(dist-filename)/" $(addprefix ./,$(dist-files))
