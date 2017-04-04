@@ -102,7 +102,7 @@ $(progress-animation): $(progress-filename)-%.png: $(OBJDIR)/logo-transparent.pn
 
 $(throbber-animation): $(throbber-filename)-%.png: $(OBJDIR)/logo-extent.png
 	convert "$<" \
-		\( "$<" -blur "0x$$( if [ $* -lt $$(( $(THROBBERLEN) / 2 )) ]; then echo $$(( 10#$* * 5 )); else echo $$(( ($(THROBBERLEN) - 10#$* - 1) * 5 )); fi )" \) \
+		\( "$<" -blur "0x$$( if [ $* -lt $$(( $(THROBBERLEN) / 2 )) ]; then echo $$(( (10#$* * 25) / $(THROBBERLEN) )); else echo $$(( (($(THROBBERLEN) - 10#$* - 1) * 25) / $(THROBBERLEN) )); fi )" \) \
 		-composite png32:"$@"
 
 $(static-resources): %: resource/%
