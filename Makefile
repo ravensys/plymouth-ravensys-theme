@@ -19,6 +19,9 @@ PROGRESSLEN = 16
 
 THROBBERLEN = 16
 
+theme-dir = plymouth/themes/$(THEMENAME)
+theme-file = $(THEMENAME).plymouth
+
 source-files += logo.svgz
 source-files += theme.plymouth.in
 source-files += $(addprefix resource/,$(static-resources))
@@ -47,9 +50,6 @@ release-files += $(static-resources)
 release-files += $(theme-file)
 release-files += LICENSE
 release-archive = $(release-filename).tar.gz $(release-filename).tar.xz
-
-theme-dir = plymouth/themes/$(THEMENAME)
-theme-file = $(THEMENAME).plymouth
 
 .PHONY: all
 all: $(progress-animation) $(throbber-animation) $(static-resources) $(theme-file)
