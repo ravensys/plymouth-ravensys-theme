@@ -118,15 +118,15 @@ $(obj-dir)/logo-extent.png: $(obj-dir)/logo.png
 $(obj-dir)/logo-transparent.png: $(obj-dir)/logo.png
 	convert "$<" -alpha on -channel a -evaluate subtract "$(LOGOALPHA)%" png32:"$@"
 
-$(dist-filename).tar.gz:
-	tar -czf "$@" --transform "s/^\./$(dist-filename)/" $(addprefix ./,$(dist-files))
+$(dist-filename).tar.gz: $(dist-files)
+	tar -czf "$@" --transform "s/^\./$(dist-filename)/" $(addprefix ./,$^)
 
-$(dist-filename).tar.xz:
-	tar -cJf "$@" --transform "s/^\./$(dist-filename)/" $(addprefix ./,$(dist-files))
+$(dist-filename).tar.xz: $(dist-files)
+	tar -cJf "$@" --transform "s/^\./$(dist-filename)/" $(addprefix ./,$^)
 
-$(release-filename).tar.gz: all
-	tar -czf "$@" --transform "s/^\./$(release-filename)/" $(addprefix ./,$(release-files))
+$(release-filename).tar.gz: $(release-files)
+	tar -czf "$@" --transform "s/^\./$(release-filename)/" $(addprefix ./,$^)
 
-$(release-filename).tar.xz: all
-	tar -cJf "$@" --transform "s/^\./$(release-filename)/" $(addprefix ./,$(release-files))
+$(release-filename).tar.xz: $(release-files)
+	tar -cJf "$@" --transform "s/^\./$(release-filename)/" $(addprefix ./,$^)
 
