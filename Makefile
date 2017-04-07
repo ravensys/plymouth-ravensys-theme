@@ -39,7 +39,9 @@ static-resources = background-tile.png box.png bullet.png entry.png lock.png
 dist-filename = plymouth-theme-$(THEMENAME)
 dist-files += $(addprefix $(srcdir)/, $(source-files))
 dist-files += Makefile
+dist-files += Attribution
 dist-files += CC-BY-SA-4.0
+dist-files += LICENSE
 #TODO add README file
 #dist-files += README.md
 dist-archive = $(dist-filename).tar.gz $(dist-filename).tar.xz
@@ -49,6 +51,7 @@ release-files += $(progress-animation)
 release-files += $(throbber-animation)
 release-files += $(static-resources)
 release-files += $(theme-file)
+release-files += Attribution
 release-files += CC-BY-SA-4.0
 release-archive = $(release-filename).tar.gz $(release-filename).tar.xz
 
