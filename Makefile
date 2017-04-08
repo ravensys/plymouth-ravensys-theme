@@ -1,12 +1,3 @@
-prefix = /usr
-datarootdir = $(prefix)/share
-datadir = $(datarootdir)
-
-srcdir = src
-VPATH = $(srcdir)
-
-OBJDIR = obj
-
 THEMENAME = ravensys
 THEMEDESC = RavenSys charging logo Plymouth theme.
 VERSION = $(shell date '+%Y%m%d')
@@ -19,12 +10,8 @@ PROGRESSLEN = 16
 
 THROBBERLEN = 16
 
-theme-dir = plymouth/themes/$(THEMENAME)
+theme-dir = /usr/share/plymouth/themes/$(THEMENAME)
 theme-file = $(THEMENAME).plymouth
-
-source-files += logo.svgz
-source-files += theme.plymouth.in
-source-files += $(addprefix resource/,$(static-resources))
 
 progress-filename = progress
 progress-sequence = $(shell seq -w 0 $$(( $(PROGRESSLEN) - 1 )))
@@ -55,24 +42,33 @@ release-files += Attribution
 release-files += CC-BY-SA-4.0
 release-archive = $(release-filename).tar.gz $(release-filename).tar.xz
 
+srcdir = src
+
+source-files += logo.svgz
+source-files += theme.plymouth.in
+source-files += $(addprefix resource/,$(static-resources))
+
+OBJDIR = obj
+VPATH = $(srcdir)
+
 .PHONY: all
 all: $(progress-animation) $(throbber-animation) $(static-resources) $(theme-file)
 
 .PHONY: install
 install:
-	install -d -m 0755 $(DESTDIR)$(datadir)/$(theme-dir)
-	install -m 0644 $(progress-animation) $(DESTDIR)$(datadir)/$(theme-dir)
-	install -m 0644 $(throbber-animation) $(DESTDIR)$(datadir)/$(theme-dir)
-	install -m 0644 $(static-resources) $(DESTDIR)$(datadir)/$(theme-dir)
-	install -m 0644 $(theme-file) $(DESTDIR)$(datadir)/$(theme-dir)
+	install -d -m 0755 $(DESTDIR)$(theme-dir)
+	install -m 0644 $(progress-animation) $(DESTDIR)$(theme-dir)
+	install -m 0644 $(throbber-animation) $(DESTDIR)$(theme-dir)
+	install -m 0644 $(static-resources) $(DESTDIR)$(theme-dir)
+	install -m 0644 $(theme-file) $(DESTDIR)$(theme-dir)
 
 .PHONY: uninstall
 uninstall:
-	rm -f $(addprefix $(DESTDIR)$(datadir)/$(theme-dir)/,$(progress-animation))
-	rm -f $(addprefix $(DESTDIR)$(datadir)/$(theme-dir)/,$(throbber-animation))
-	rm -f $(addprefix $(DESTDIR)$(datadir)/$(theme-dir)/,$(static-resources))
-	rm -f $(DESTDIR)$(datadir)/$(theme-dir)/$(theme-file)
-	rm -rf $(DESTDIR)$(datadir)/$(theme-dir)
+	rm -f $(addprefix $(DESTDIR)$(theme-dir)/,$(progress-animation))
+	rm -f $(addprefix $(DESTDIR)$(theme-dir)/,$(throbber-animation))
+	rm -f $(addprefix $(DESTDIR)$(theme-dir)/,$(static-resources))
+	rm -f $(DESTDIR)$(theme-dir)/$(theme-file)
+	rm -rf $(DESTDIR)$(theme-dir)
 
 .PHONY: clean
 clean:
@@ -135,4 +131,3 @@ $(release-filename).tar.gz: $(release-files)
 
 $(release-filename).tar.xz: $(release-files)
 	tar -cJf "$@" --transform "s/^\./$(release-filename)/" $(addprefix ./,$^)
-
