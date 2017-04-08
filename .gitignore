@@ -1,24 +1,30 @@
-# build objects
-background-tile.png
-box.png
-bullet.png
-entry.png
-lock.png
-progress-*.png
-throbber-*.png
-ravensys.plymouth
+#
+# Build objects and directories
+#
+/obj/
+/ravensys.plymouth
+/*.png
 
-# obj directory
-obj
 
-# dist archives
-plymouth-theme-ravensys.tar.gz
-plymouth-theme-ravensys.tar.xz
+#
+# Distribution archives (make dist)
+#
+/plymouth-theme-ravensys.tar.gz
+/plymouth-theme-ravensys.tar.xz
 
-# release archives
-plymouth-theme-ravensys-*.tar.gz
-plymouth-theme-ravensys-*.tar.xz
+#
+# Release archives (make release)
+#
+/plymouth-theme-ravensys-*.tar.gz
+/plymouth-theme-ravensys-*.tar.xz
 
-# open build service
-build-service
+#
+# openSUSE Build Service
+#
+/build-service/
 
+#
+# IntelliJ IDEA Project files
+#
+.idea/
+*.iml
